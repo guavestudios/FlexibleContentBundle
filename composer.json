@@ -1,0 +1,26 @@
+{
+	"name": "guave/flexiblecontent-bundle",
+	"description": "Flexible Content Element for Contao 4.9+",
+	"type": "contao-bundle",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Christopher Stadler",
+			"email": "christopher.stadler@guavestudios.com",
+			"homepage": "https://github.com/guavestudios"
+		}
+	],
+	"require": {
+		"contao/core-bundle": "^4.9",
+		"guave/visualradio-bundle": "^2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Guave\\FlexibleContentBundle\\": "src/"
+		}
+	},
+	"extra": {
+		"contao-manager-plugin": "Guave\\FlexibleContentBundle\\ContaoManager\\Plugin"
+	},
+	"minimum-stability": "stable"
+}
