@@ -3,10 +3,12 @@
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'flexibleTemplate';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['flexibleContent'] = '{type_legend},type;{config_legend},flexibleTemplate;{template_legend:hide},customTpl;';
 
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_1col-img'] = 'flexibleTitle,flexibleSubtitle,flexibleImages';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_1col-text'] = 'flexibleTitle,flexibleSubtitle,flexibleText';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-img-img'] = 'flexibleTitle,flexibleSubtitle,flexibleImages,flexibleImagesColumn';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-img-text'] = 'flexibleTitle,flexibleSubtitle,flexibleImages,flexibleText';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-text'] = 'flexibleTitle,flexibleSubtitle,flexibleText,flexibleTextColumn';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-txt-img'] = 'flexibleTitle,flexibleSubtitle,flexibleText,flexibleImages';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-img-txt'] = 'flexibleTitle,flexibleSubtitle,flexibleImages,flexibleText';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-text-img'] = 'flexibleTitle,flexibleSubtitle,flexibleText,flexibleImages';
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleTemplate'] = [
     'exclude' => true,
@@ -65,4 +67,26 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleImages'] = [
     'load_callback' => [
         ['tl_content', 'setMultiSrcFlags'],
     ],
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['flexibleImagesColumn'] = [
+    'exclude' => true,
+    'inputType' => 'fileTree',
+    'eval' => [
+        'multiple' => true,
+        'filesOnly' => true,
+        'fieldType' => 'checkbox',
+        'extensions' => $GLOBALS['TL_CONFIG']['validImageTypes'],
+        'orderField' => 'orderSRC2',
+        'tl_class' => 'w50',
+    ],
+    'sql' => ['type' => 'blob', 'notnull' => false],
+    'load_callback' => [
+        ['tl_content', 'setMultiSrcFlags'],
+    ],
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['orderSRC2'] = [
+    'label' => &$GLOBALS['TL_LANG']['MSC']['sortOrder'],
+    'sql' => ['type' => 'blob', 'notnull' => false],
 ];

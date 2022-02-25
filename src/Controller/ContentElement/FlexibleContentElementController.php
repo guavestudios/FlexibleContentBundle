@@ -41,12 +41,15 @@ class FlexibleContentElementController extends AbstractContentElementController
         }
 
         $flexibleImages = self::prepareImages($model, 'orderSRC');
+        $flexibleImagesColumn = self::prepareImages($model, 'orderSRC2');
 
         return $this->render('content-elements/' . $this->strTemplate . '.html.twig', [
             'flexibleTitle' => $model->flexibleTitle,
             'flexibleSubtitle' => $model->flexibleSubtitle,
             'flexibleText' => $model->flexibleText,
+            'flexibleTextColumn' => $model->flexibleTextColumn,
             'flexibleImages' => $flexibleImages,
+            'flexibleImagesColumn' => $flexibleImagesColumn,
         ]);
     }
 
@@ -54,6 +57,10 @@ class FlexibleContentElementController extends AbstractContentElementController
     {
         $preparedImages = [];
         $images = unserialize($model->$attribute);
+
+        if (empty($images)) {
+            return $preparedImages;
+        }
 
         foreach ($images as $image) {
             $file = FilesModel::findByUuid($image);

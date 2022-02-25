@@ -16,3 +16,7 @@ $GLOBALS['TL_LANG']['tl_content']['flexibleImages'] = [
     'Bilder',
     'Bitte wählen Sie eine oder mehrere Dateien aus der Dateiübersicht.',
 ];
+$GLOBALS['TL_LANG']['tl_content']['flexibleImagesColumn'] = [
+    'Bilder 2te Spalte',
+    'Bitte wählen Sie eine oder mehrere Dateien aus der Dateiübersicht.',
+];
