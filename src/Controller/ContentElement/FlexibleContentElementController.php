@@ -40,17 +40,10 @@ class FlexibleContentElementController extends AbstractContentElementController
             $this->strTemplate = $model->customTpl;
         }
 
-        $flexibleImages = self::prepareImages($model, 'orderSRC');
-        $flexibleImagesColumn = self::prepareImages($model, 'orderSRC2');
+        $model->flexibleImages = self::prepareImages($model, 'orderSRC');
+        $model->flexibleImagesColumn = self::prepareImages($model, 'orderSRC2');
 
-        return $this->render('content-elements/' . $this->strTemplate . '.html.twig', [
-            'flexibleTitle' => $model->flexibleTitle,
-            'flexibleSubtitle' => $model->flexibleSubtitle,
-            'flexibleText' => $model->flexibleText,
-            'flexibleTextColumn' => $model->flexibleTextColumn,
-            'flexibleImages' => $flexibleImages,
-            'flexibleImagesColumn' => $flexibleImagesColumn,
-        ]);
+        return $this->render('content-elements/' . $this->strTemplate . '.html.twig', $model->row());
     }
 
     public static function prepareImages(ContentModel $model, string $attribute): array
