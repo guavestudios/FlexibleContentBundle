@@ -2,7 +2,7 @@
 	"name": "guave/flexiblecontent-bundle",
 	"description": "Flexible Content Element for Contao 4.9+",
 	"type": "contao-bundle",
-	"license": "MIT",
+	"license": "ISC",
 	"authors": [
 		{
 			"name": "Christopher Stadler",
