@@ -5,36 +5,30 @@ namespace Guave\FlexibleContentBundle\Controller\ContentElement;
 use Contao\BackendTemplate;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\FilesModel;
+use Contao\System;
 use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @ContentElement(
- *     "flexibleContent",
- *     category="flexibleContent",
- *     template="ce_flexible_content"
- * )
+ * @ContentElement("flexibleContent", category="flexibleContent", template="content_element/1col-img")
  */
-class FlexibleContentElementController extends AbstractContentElementController
+#[AsContentElement('flexibleContent', category:'flexibleContent', template:'content_element/1col-img')]
+class FlexibleContentController extends AbstractContentElementController
 {
-    protected string $strTemplate = 'ce_flexible_content';
-
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
-        if (TL_MODE === 'BE') {
-            $this->strTemplate = 'be_wildcard';
-            $template = new BackendTemplate($this->strTemplate);
-
+        if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request)) {
+            $template = new BackendTemplate('be_wildcard');
             $template->title = $model->flexibleTitle;
             $template->wildcard = $model->flexibleSubtitle;
-
             return $template->getResponse();
         }
 
-        $this->strTemplate = 'ce_' . $model->flexibleTemplate;
+        $this->strTemplate = $model->flexibleTemplate;
 
         if ($model->customTpl) {
             $this->strTemplate = $model->customTpl;
@@ -43,7 +37,7 @@ class FlexibleContentElementController extends AbstractContentElementController
         $model->flexibleImages = self::prepareImages($model, 'orderSRC');
         $model->flexibleImagesColumn = self::prepareImages($model, 'orderSRC2');
 
-        return $this->render('content-elements/' . $this->strTemplate . '.html.twig', $model->row());
+        return $this->render('@Contao/' . $this->strTemplate . '.html.twig', $model->row());
     }
 
     public static function prepareImages(ContentModel $model, string $attribute): array
