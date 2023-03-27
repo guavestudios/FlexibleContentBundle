@@ -37,7 +37,7 @@ class FlexibleContentController extends AbstractContentElementController
         $model->flexibleImages = self::prepareImages($model, 'orderSRC');
         $model->flexibleImagesColumn = self::prepareImages($model, 'orderSRC2');
 
-        return $this->render('@Contao/' . $this->strTemplate . '.html.twig', $model->row());
+        return $this->render('@Contao/content_element/' . $this->strTemplate . '.html.twig', $model->row());
     }
 
     public static function prepareImages(ContentModel $model, string $attribute): array
