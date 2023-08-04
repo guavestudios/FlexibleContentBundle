@@ -1,6 +1,6 @@
 {
 	"name": "guave/flexiblecontent-bundle",
-	"description": "Flexible Content Element for Contao 4.9+",
+	"description": "Flexible Content Element for Contao 4.13+",
 	"type": "contao-bundle",
 	"license": "ISC",
 	"authors": [

@@ -1,0 +1,12 @@
+<div class="1col">
+    <h4><?= $this->flexibleSubtitle ?></h4>
+    <h2><?= $this->flexibleTitle ?></h2>
+</div>
+<div class="2col">
+    <?php foreach ($this->flexibleImages as $image) : ?>
+        <img src="<?= $image['src'] ?>" alt="<?= $image['title'] ?>"/>
+    <?php endforeach; ?>
+</div>
+<div class="2col">
+    <?= $this->flexibleText ?>
+</div>
