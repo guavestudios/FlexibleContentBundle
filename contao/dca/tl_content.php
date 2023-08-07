@@ -11,7 +11,6 @@ $GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-text'] = 
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['flexibleTemplate_2col-text-img'] = 'flexibleTitle,flexibleSubtitle,flexibleText,flexibleImages';
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleTemplate'] = [
-    'exclude' => true,
     'inputType' => 'visualradio',
     'options' => $GLOBALS['TL_FLEXIBLE_CONTENT']['templates'],
     'eval' => [
@@ -25,35 +24,30 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleTemplate'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleTitle'] = [
-    'exclude' => true,
     'inputType' => 'text',
     'eval' => ['tl_class' => 'w100 clr'],
     'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false],
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleSubtitle'] = [
-    'exclude' => true,
     'inputType' => 'textarea',
     'eval' => ['rows' => 10, 'cols' => 100, 'tl_class' => 'w100 clr'],
     'sql' => ['type' => 'text', 'notnull' => false],
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleText'] = [
-    'exclude' => true,
     'inputType' => 'textarea',
     'eval' => ['rows' => 10, 'cols' => 100, 'rte' => 'tinyMCE', 'tl_class' => 'w50'],
     'sql' => ['type' => 'text', 'notnull' => false],
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleTextColumn'] = [
-    'exclude' => true,
     'inputType' => 'textarea',
     'eval' => ['rows' => 10, 'cols' => 100, 'rte' => 'tinyMCE', 'tl_class' => 'w50'],
     'sql' => ['type' => 'text', 'notnull' => false],
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleImages'] = [
-    'exclude' => true,
     'inputType' => 'fileTree',
     'eval' => [
         'multiple' => true,
@@ -70,7 +64,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleImages'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['flexibleImagesColumn'] = [
-    'exclude' => true,
     'inputType' => 'fileTree',
     'eval' => [
         'multiple' => true,

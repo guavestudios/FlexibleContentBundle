@@ -1,0 +1,10 @@
+<div class="1col">
+    <h4><?= $this->flexibleSubtitle ?></h4>
+    <h2><?= $this->flexibleTitle ?></h2>
+</div>
+<div class="2col">
+    <?= $this->flexibleText ?>
+</div>
+<div class="2col">
+    <?= $this->flexibleTextColumn ?>
+</div>

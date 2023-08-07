@@ -1,0 +1,7 @@
+services:
+  _defaults:
+    autoconfigure: true
+
+  Guave\FlexibleContentBundle\Controller\:
+    resource: ../src/Controller
+    public: true
