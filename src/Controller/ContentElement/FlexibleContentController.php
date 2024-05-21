@@ -71,8 +71,10 @@ class FlexibleContentController extends AbstractContentElementController
         $images = [];
         $files = FilesModel::findMultipleByUuids(StringUtil::deserialize($model->$attribute));
 
-        foreach ($files as $file) {
-            $images[] = self::getImageData($file);
+        if ($files) {
+            foreach ($files as $file) {
+                $images[] = self::getImageData($file);
+            }
         }
 
         return $images;
