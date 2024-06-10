@@ -6,3 +6,8 @@ services:
   Guave\FlexibleContentBundle\Controller\:
     resource: ../src/Controller
     public: true
+
+  Guave\FlexibleContentBundle\Migration\:
+    resource: '../src/Migration/*'
+    tags:
+      - { name: contao.migration, priority: 0 }
