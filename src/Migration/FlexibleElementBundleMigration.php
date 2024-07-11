@@ -18,6 +18,12 @@ class FlexibleElementBundleMigration extends AbstractMigration
             return false;
         }
 
+        $configCheck = $this->connection->executeQuery('SELECT * FROM information_schema.COLUMNS WHERE TABLE_NAME = "tl_content" AND COLUMN_NAME = "elementTemplate"');
+
+        if (empty($configCheck->fetchAllAssociative())) {
+            return false;
+        }
+
         $result = $this->connection->executeQuery('SELECT id FROM `tl_content` WHERE `type` = "flexibleelement" AND `elementTemplate` IS NOT NULL');
 
         return !empty($result->fetchAllAssociative());

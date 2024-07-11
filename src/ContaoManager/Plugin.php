@@ -13,9 +13,6 @@ use Guave\VisualRadioBundle\GuaveVisualRadioBundle;
 
 class Plugin implements BundlePluginInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function getBundles(ParserInterface $parser): array
     {
         return [

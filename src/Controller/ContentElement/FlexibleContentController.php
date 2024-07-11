@@ -8,16 +8,13 @@ use Contao\BackendTemplate;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
+use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\FilesModel;
 use Contao\StringUtil;
 use Contao\System;
-use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @ContentElement("flexibleContent", category="flexibleContent", template="content_element/1col-img")
- */
 #[AsContentElement('flexibleContent', category: 'flexibleContent', template: 'content_element/1col-img')]
 class FlexibleContentController extends AbstractContentElementController
 {
@@ -105,7 +102,7 @@ class FlexibleContentController extends AbstractContentElementController
         ];
     }
 
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
+    protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
         $scope = System::getContainer()->get('contao.routing.scope_matcher');
 
