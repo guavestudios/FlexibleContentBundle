@@ -14,14 +14,13 @@ class FlexibleElementBundleMigration extends AbstractMigration
 
     public function shouldRun(): bool
     {
-        $configCheck = true;
         if (empty($GLOBALS['TL_FLEXIBLEELEMENT']) || empty($GLOBALS['TL_FLEXIBLEELEMENT']['templates'])) {
-            $configCheck = false;
+            return false;
         }
 
         $result = $this->connection->executeQuery('SELECT id FROM `tl_content` WHERE `type` = "flexibleelement" AND `elementTemplate` IS NOT NULL');
 
-        return $configCheck && !empty($result->fetchAllAssociative());
+        return !empty($result->fetchAllAssociative());
     }
 
     public function run(): MigrationResult
