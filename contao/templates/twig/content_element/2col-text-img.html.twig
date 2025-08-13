@@ -1,0 +1,12 @@
+<h1>{{ flexibleTitle }}</h1>
+<h2>{{ flexibleSubtitle }}</h2>
+<div class="flex-container">
+    <div class="flex-column">
+        {{ flexibleText|raw }}
+    </div>
+    <div class="flex-column flex-images">
+        {% for image in flexibleImagesColumn %}
+            <img src="{{ image.src }}" alt="{{ image.title }}" class="flex-image"/>
+        {% endfor %}
+    </div>
+</div>

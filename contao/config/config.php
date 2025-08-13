@@ -9,5 +9,5 @@ $GLOBALS['TL_FLEXIBLE_CONTENT']['templates'] = [
     '2col-text-img',
 ];
 
-$GLOBALS['TL_FLEXIBLE_CONTENT']['iconPath'] = 'bundles/guaveflexiblecontent/assets';
+$GLOBALS['TL_FLEXIBLE_CONTENT']['iconPath'] = 'bundles/guaveflexiblecontent/icons';
 $GLOBALS['TL_FLEXIBLE_CONTENT']['iconExt'] = '.svg';

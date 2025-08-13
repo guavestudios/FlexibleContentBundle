@@ -3,11 +3,11 @@ services:
     autoconfigure: true
     autowire: true
 
-  Guave\FlexibleContentBundle\Controller\:
-    resource: ../src/Controller
-    public: true
+  Guave\FlexibleContentBundle\:
+    resource: ../src
+    exclude: ../src/{ContaoManager,DependencyInjection}
 
   Guave\FlexibleContentBundle\Migration\:
-    resource: '../src/Migration/*'
+    resource: ../src/Migration
     tags:
       - { name: contao.migration, priority: 0 }

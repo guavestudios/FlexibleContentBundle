@@ -1,5 +1,0 @@
-<div class="1col html">
-    <h4><?= $this->flexibleSubtitle ?></h4>
-    <h2><?= $this->flexibleTitle ?></h2>
-    <?= $this->flexibleText ?>
-</div>

@@ -15,46 +15,9 @@ use Contao\System;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AsContentElement('flexibleContent', category: 'flexibleContent', template: 'content_element/1col-img')]
+#[AsContentElement('flexibleContent', category: 'flexibleContent', template: 'content_element/flexible-content')]
 class FlexibleContentController extends AbstractContentElementController
 {
-    /**
-     * @param array<string>|null $classes
-     */
-    public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null): Response
-    {
-        if (isset($GLOBALS['TL_HOOKS']['flexibleTemplateField']) && \is_array($GLOBALS['TL_HOOKS']['flexibleTemplateField'])) {
-            foreach ($GLOBALS['TL_HOOKS']['flexibleTemplateField'] as $callback) {
-                $model = System::importStatic($callback[0])->{$callback[1]}($model, $this);
-            }
-        }
-
-        $type = $this->getType();
-
-        if ($model->customTpl === '') {
-            $model->customTpl = 'content_element/'.$model->flexibleTemplate;
-        }
-        $template = $this->createTemplate($model, 'ce_'.$type);
-
-        $this->addHeadlineToTemplate($template, $model->headline);
-        $this->addCssAttributesToTemplate($template, 'ce_'.$type, $model->cssID, $classes);
-        $this->addPropertiesToTemplate($template, $request->attributes->get('templateProperties', []));
-        $this->addSectionToTemplate($template, $section);
-        $this->tagResponse($model);
-
-        $response = $this->getResponse($template, $model, $request);
-
-        if ($response === null) {
-            trigger_deprecation('contao/core-bundle', '4.12', 'Returning null in %s::getResponse() is deprecated, return a Response instead.', static::class);
-            $response = $template->getResponse();
-        }
-
-        return $response;
-    }
-
-    /**
-     * @return array<string>|array<array<string>>
-     */
     public static function prepareImages(ContentModel $model, string $attribute): array
     {
         if ($model->$attribute === null) {
@@ -89,10 +52,10 @@ class FlexibleContentController extends AbstractContentElementController
         }
 
         if ($model->meta) {
-            $meta = unserialize($model->meta);
+            $meta = StringUtil::deserialize($model->meta);
             $meta = $meta[$GLOBALS['TL_LANGUAGE']];
         } else {
-            $meta['title'] = $model->title;
+            $meta['title'] = $model->name;
         }
 
         return [
@@ -104,19 +67,13 @@ class FlexibleContentController extends AbstractContentElementController
 
     protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
-        $scope = System::getContainer()->get('contao.routing.scope_matcher');
-
-        if ($scope && $scope->isBackendRequest($request)) {
-            $template = new BackendTemplate('be_wildcard');
-            $template->title = $model->flexibleTitle;
-            $beIcon = $GLOBALS['TL_FLEXIBLE_CONTENT']['iconPath'].'/'.$model->flexibleTemplate.$GLOBALS['TL_FLEXIBLE_CONTENT']['iconExt'];
-            $template->wildcard = '<img src="'.$beIcon.'"><p>'.$model->flexibleTemplate.'</p>';
-
-            return $template->getResponse();
-        }
-
-        $template->flexibleImages = self::prepareImages($model, 'orderSRC');
-        $template->flexibleImagesColumn = self::prepareImages($model, 'orderSRC2');
+        $template->flexibleTemplate = $model->flexibleTemplate;
+        $template->flexibleTitle = $model->flexibleTitle;
+        $template->flexibleSubtitle = $model->flexibleSubtitle;
+        $template->flexibleText = $model->flexibleText;
+        $template->flexibleTextColumn = $model->flexibleTextColumn;
+        $template->flexibleImages = self::prepareImages($model, 'flexibleImages');
+        $template->flexibleImagesColumn = self::prepareImages($model, 'flexibleImagesColumn');
 
         return $template->getResponse();
     }

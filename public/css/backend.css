@@ -1,0 +1,20 @@
+.cte_preview .flex-container {
+	display: grid;
+	gap: 25px;
+	grid-template-columns: auto auto;
+}
+
+.cte_preview .flex-column {
+	display: inline-grid;
+	grid-template-columns: auto;
+}
+
+.cte_preview .flex-column.flex-images {
+	grid-template-columns: auto auto auto auto;
+	align-items: center;
+}
+
+.cte_preview .flex-image {
+	width: 100%;
+	max-width: 100%;
+}
