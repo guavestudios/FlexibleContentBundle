@@ -24,7 +24,7 @@ class FlexibleElementBundleMigration extends AbstractMigration
             return false;
         }
 
-        $result = $this->connection->executeQuery('SELECT id FROM `tl_content` WHERE `type` = "flexibleelement" AND `elementTemplate` IS NOT NULL');
+        $result = $this->connection->executeQuery('SELECT id FROM `tl_content` WHERE (`type` = "flexibleelement" AND `elementTemplate` IS NOT NULL) OR (`type` = "flexibleElement" AND `elementTemplate` IS NOT NULL)');
 
         return !empty($result->fetchAllAssociative());
     }
@@ -41,22 +41,22 @@ class FlexibleElementBundleMigration extends AbstractMigration
             $this->connection->executeStatement('ALTER TABLE tl_content ADD COLUMN `flexibleImages` LONGBLOB DEFAULT NULL');
         }
 
-        $result = $this->connection->executeQuery('SELECT id, type, elementTemplate, flexibleImage FROM `tl_content` WHERE `type` = "flexibleelement"');
+        $result = $this->connection->executeQuery('SELECT id, type, elementTemplate, flexibleImage FROM `tl_content` WHERE `type` = "flexibleelement" OR `type` = "flexibleElement"');
 
+
+        $statement = $this->connection->prepare('UPDATE `tl_content` SET `type` = ?, `flexibleTemplate` = ?, `flexibleImages` = ? WHERE id = ?');
         foreach ($result->fetchAllAssociative() as $row) {
-            $this->connection
-                ->prepare('UPDATE `tl_content` SET `type` = ?, `flexibleTemplate` = ?, `flexibleImages` = ? WHERE id = ?')
-                ->executeStatement([
-                    'flexibleContent',
-                    $templates[$row['elementTemplate']] ?? '',
-                    $row['flexibleImage'],
-                    $row['id'],
-                ]);
+            $statement->executeStatement([
+                'flexibleContent',
+                $templates[$row['elementTemplate']] ?? '',
+                $row['flexibleImage'],
+                $row['id'],
+            ]);
         }
 
         return $this->createResult(
             true,
-            'Moved from flexibleelement to flexibleContent.'
+            'Moved from flexibleElement to flexibleContent.'
         );
     }
 }
